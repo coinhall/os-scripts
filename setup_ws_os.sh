@@ -42,11 +42,7 @@ if [ $reboot_required == false ]; then
   exit 0
 fi
 
-# reboot if necessary
-read -p "SYSTEM REBOOT REQUIRED! REBOOT NOW (Y/N)? " -n 1 -r
-echo # move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  shutdown -r now
-else
-  echo "Reboot skipped. Changes will only be applied after a full reboot!"
-fi
+# prompt reboot if necessary
+echo
+echo "SYSTEM REBOOT REQUIRED! REBOOT NOW WITH:"
+echo "sudo shutdown -r now"
