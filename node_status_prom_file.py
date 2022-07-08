@@ -2,10 +2,11 @@ import subprocess
 import json
 from datetime import datetime
 
-metrics_file_name = "testmetrics.prom"
+metrics_file_name = "node-status-file.prom"
+command = ""
 
 check_status = subprocess.run(
-    ["persistenceCore", "status"], capture_output=True, text=True)
+    [command, "status"], capture_output=True, text=True)
 
 if check_status.returncode == 0:
     if check_status.stdout:
