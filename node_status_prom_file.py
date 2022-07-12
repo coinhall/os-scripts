@@ -1,9 +1,12 @@
 import subprocess
 import json
 from datetime import datetime
+from pathlib import Path
 
-METRICS_FILE_NAME = "node-status-file.prom"
-COMMAND = ""
+HOME_PATH = Path.home()
+METRICS_FILE_NAME = HOME_PATH / "node_status_file.prom"
+COMMAND_PATH = HOME_PATH / Path("go/bin/")
+COMMAND = COMMAND_PATH / "persistenceCore"
 
 check_status = subprocess.run(
     [COMMAND, "status"], capture_output=True, text=True)
@@ -16,7 +19,7 @@ if check_status.returncode == 0:
         print("stderr")
         parse_check_status = json.loads(check_status.stderr)
 else:
-    exit()
+    exit(1)
 
 latest_block_height: str = parse_check_status["SyncInfo"]["latest_block_height"]
 
