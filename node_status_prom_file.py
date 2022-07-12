@@ -2,11 +2,11 @@ import subprocess
 import json
 from datetime import datetime
 
-metrics_file_name = "node-status-file.prom"
-command = ""
+METRICS_FILE_NAME = "node-status-file.prom"
+COMMAND = ""
 
 check_status = subprocess.run(
-    [command, "status"], capture_output=True, text=True)
+    [COMMAND, "status"], capture_output=True, text=True)
 
 if check_status.returncode == 0:
     if check_status.stdout:
@@ -34,7 +34,7 @@ else:
 metrics_list = ["# HELP latest_block_height The latest block height in this node.", "# TYPE latest_block_height counter", "latest_block_height %s" % latest_block_height, "# HELP delta_seconds Difference in seconds between system time and latest block time.",
                 "# TYPE delta_seconds gauge", "delta_seconds %.2f" % delta_seconds, "# HELP sync_status This references the 'catching_up' boolean of the node. 0 for False and 1 for True.", "# TYPE sync_status gauge", "sync_status %d" % sync_status]
 
-with open(metrics_file_name, 'w') as f:
+with open(METRICS_FILE_NAME, 'w') as f:
     for line in metrics_list:
         f.write(line)
         f.write('\n')
