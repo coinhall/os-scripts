@@ -8,7 +8,8 @@ from pathlib import Path
 HOME_PATH = Path.home()
 METRICS_FILE_NAME = HOME_PATH / "node_status_file.prom"
 COMMAND_PATH = HOME_PATH / Path("go/bin/")
-COMMAND = COMMAND_PATH / "persistenceCore"
+# add chain specific command in string in COMMAND variable
+COMMAND = COMMAND_PATH / ""
 
 check_status = subprocess.run(
     [COMMAND, "status"], capture_output=True, text=True)
