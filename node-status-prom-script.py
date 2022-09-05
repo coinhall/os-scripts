@@ -16,10 +16,10 @@ check_status = subprocess.run(
 
 if check_status.returncode == 0:
     if check_status.stdout:
-        print("stdout")
+        # print("stdout")
         parse_check_status = json.loads(check_status.stdout)
     elif check_status.stderr:
-        print("stderr")
+        # print("stderr")
         parse_check_status = json.loads(check_status.stderr)
 else:
     exit(1)
