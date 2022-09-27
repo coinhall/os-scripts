@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 HOME_PATH = Path.home()
-METRICS_FILE_NAME = HOME_PATH / "node_status_file.prom"
+METRICS_FILE_NAME = HOME_PATH / "node-status-file.prom"
 COMMAND_PATH = HOME_PATH / Path("go/bin/")
 # add chain specific command in string in COMMAND variable
 COMMAND = COMMAND_PATH / ""
