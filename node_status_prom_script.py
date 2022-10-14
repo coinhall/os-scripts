@@ -1,15 +1,25 @@
-#! /usr/bin/python3
+#!/usr/bin/python3
+# Run command to check if node is running and output certain metrics to a .prom file.
+# Requires one chain specific command as argument.
+# Use in conjunction with node_exporter by Prometheus
+# See: https://prometheus.io/docs/guides/node-exporter/
+#      https://prometheus.io/docs/instrumenting/exposition_formats/
 
 import subprocess
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
+
+if len(sys.argv) != 2:
+    print("Incorrect number of arguments. Requires one chain specific command as argument.")
+    exit(1)
 
 HOME_PATH = Path.home()
 METRICS_FILE_NAME = HOME_PATH / "node-status-file.prom"
 COMMAND_PATH = HOME_PATH / Path("go/bin/")
 
-COMMAND = COMMAND_PATH / ""  # TODO: add chain specific command into string
+COMMAND = COMMAND_PATH / sys.argv[1]
 
 check_status = subprocess.run(
     [COMMAND, "status"], capture_output=True, text=True)
@@ -45,7 +55,8 @@ if check_status.returncode == 0:
 
 else:
     is_service_up = 0
-    metrics_list = ["# HELP is_service_up This references whether the node service is running. 0 for False and 1 for True.", "# TYPE is_service_up gauge", "is_service_up %d" % is_service_up]
+    metrics_list = ["# HELP is_service_up This references whether the node service is running. 0 for False and 1 for True.",
+                    "# TYPE is_service_up gauge", "is_service_up %d" % is_service_up]
 
 with open(METRICS_FILE_NAME, 'w') as f:
     for line in metrics_list:
