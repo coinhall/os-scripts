@@ -62,3 +62,5 @@ with open(METRICS_FILE_NAME, 'w') as f:
     for line in metrics_list:
         f.write(line)
         f.write('\n')
+
+print(datetime.now(), "Script ran succesfully.")
