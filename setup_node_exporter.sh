@@ -10,15 +10,24 @@ elif [ $# -gt 1 ]; then
     exit 1
 fi
 
+node_exporter_directory=node_exporter-1.4.0.linux-amd64
+prom_script_file=node_status_prom_script.py
+
 echo "Changing to home directory..."
 cd
 echo "Downloading node_exporter-1.4.0.linux-amd4"
+if [ -d "$node_exporter_directory" ]; then
+    rm -rf $node_exporter_directory
+fi
 wget https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz -P ~ 
 echo "Extracting file..."
 tar -xzf node_exporter-1.4.0.linux-amd64.tar.gz
 rm -f node_exporter-1.4.0.linux-amd64.tar.gz
 
 echo "Downloading node_status_prom_script.py"
+if [ -f "$prom_script_file" ]; then
+    rm -f $prom_script_file
+fi
 wget https://raw.githubusercontent.com/coinhall/os-scripts/main/node_status_prom_script.py -P ~
 
 echo "Setting up cronjob..."
