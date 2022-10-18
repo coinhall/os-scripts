@@ -1,5 +1,9 @@
 #!/bin/bash
-# 
+# Requires one chain specific command as argument.
+# Downloads node_exporter from prometheus.
+# Downloads node_status_prom_script.py that serves a .prom file for the node_exporter.
+# Sets up a cronjob to refresh the .prom file every minute.
+# Starts the node_exporter in a tmux session
 
 set -e
 
@@ -39,3 +43,6 @@ echo "cronjob set up done."
 
 echo "Starting node_exporter in tmux session called node-exporter.."
 session_name=node-exporter
+tmux new-session -d -s $session
+tmux send-keys -t $session 'cd node_exporter-1.4.0.linux-amd64' C-m
+tmux send-keys -t $session './node_exporter --collector.textfile.directory="$HOME"' C-m
