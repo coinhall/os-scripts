@@ -43,11 +43,11 @@ echo "cronjob set up done."
 
 echo "Starting node_exporter in tmux session called node-exporter..."
 session_name=node-exporter
-session_exist=$(tmux ls | grep $session) || session_exist=""
+session_exist=$(tmux ls | grep $session_name) || session_exist=""
 if [ ! "$session_exist" = "" ]; then
-    tmux kill-session -t $session
+    tmux kill-session -t $session_name
 fi
-tmux new-session -d -s $session
-tmux send-keys -t $session 'cd node_exporter-1.4.0.linux-amd64' C-m
-tmux send-keys -t $session './node_exporter --collector.textfile.directory="$HOME"' C-m
+tmux new-session -d -s $session_name
+tmux send-keys -t $session_name 'cd node_exporter-1.4.0.linux-amd64' C-m
+tmux send-keys -t $session_name './node_exporter --collector.textfile.directory="$HOME"' C-m
 echo "node_exporter started"
