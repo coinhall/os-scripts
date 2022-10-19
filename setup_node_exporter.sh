@@ -41,8 +41,13 @@ echo "Setting up cronjob..."
 crontab -l; echo "*/1 * * * * python3 ~/node_status_prom_script.py $1 > ./node_exporter_cron.log 2>&1" | awk '!seen[$0]++' | crontab -
 echo "cronjob set up done."
 
-echo "Starting node_exporter in tmux session called node-exporter.."
+echo "Starting node_exporter in tmux session called node-exporter..."
 session_name=node-exporter
+session_exist=$(tmux ls | grep $session) || session_exist=""
+if [ ! "$session_exist" = "" ]; then
+    tmux kill-session -t $session
+fi
 tmux new-session -d -s $session
 tmux send-keys -t $session 'cd node_exporter-1.4.0.linux-amd64' C-m
 tmux send-keys -t $session './node_exporter --collector.textfile.directory="$HOME"' C-m
+echo "node_exporter started"
