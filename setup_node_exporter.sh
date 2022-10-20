@@ -38,7 +38,7 @@ wget https://raw.githubusercontent.com/coinhall/os-scripts/main/node_status_prom
 echo "$prom_script_file downloaded."
 
 echo "Setting up cronjob..."
-crontab -l || true; echo "*/1 * * * * python3 ~/node_status_prom_script.py $1 > ./node_exporter_cron.log 2>&1" | awk '!seen[$0]++' | crontab -
+(crontab -l || true; echo "*/1 * * * * python3 ~/node_status_prom_script.py $1 > ./node_exporter_cron.log 2>&1") | awk '!seen[$0]++' | crontab -
 echo "cronjob set up done."
 
 echo "Starting node_exporter in tmux session called node-exporter..."
