@@ -8,6 +8,7 @@
 import subprocess
 import sys
 from pathlib import Path
+from datetime import datetime
 
 if len(sys.argv) == 1:
     print("Requires at least one process as argument.")
@@ -38,3 +39,5 @@ with open(METRICS_FILE_NAME, 'w') as f:
     for line in metrics_list:
         f.write(line)
         f.write('\n')
+
+print(datetime.now(), "Script ran succesfully.")
