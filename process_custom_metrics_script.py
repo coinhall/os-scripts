@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Run `ps -a` to check current running processes.
+# Run `ps -ao comm` to check current running processes.
 # Requires the processes command to be passed as arguments.
 # Use in conjunction with node_exporter by Prometheus
 # See: https://prometheus.io/docs/guides/node-exporter/
@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-if len(sys.argv) == 0:
+if len(sys.argv) == 1:
     print("Requires at least one process as argument.")
     exit(1)
 
