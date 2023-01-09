@@ -2,7 +2,6 @@
 # Run `ps -a` to check current running processes.
 
 import subprocess
-import json
 import sys
 from pathlib import Path
 
