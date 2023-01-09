@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 # Run `ps -a` to check current running processes.
+# Requires the processes command to be passed as arguments.
+# Use in conjunction with node_exporter by Prometheus
+# See: https://prometheus.io/docs/guides/node-exporter/
+#      https://prometheus.io/docs/instrumenting/exposition_formats/
 
 import subprocess
 import sys
