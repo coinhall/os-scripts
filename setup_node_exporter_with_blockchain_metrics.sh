@@ -15,7 +15,7 @@ elif [ $# -gt 1 ]; then
     exit 1
 fi
 
-node_exporter_directory=node_exporter-1.4.0.linux-amd64
+node_exporter_directory=node_exporter-1.5.0.linux-amd64
 prom_script_file=node_status_prom_script.py
 
 echo "Changing to home directory..."
@@ -24,10 +24,10 @@ echo "Downloading $node_exporter_directory"
 if [ -d "$node_exporter_directory" ]; then
     rm -rf $node_exporter_directory
 fi
-wget https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz -P ~ 
+wget https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-amd64.tar.gz -P ~ 
 echo "Extracting file..."
-tar -xzf node_exporter-1.4.0.linux-amd64.tar.gz
-rm -f node_exporter-1.4.0.linux-amd64.tar.gz
+tar -xzf node_exporter-1.5.0.linux-amd64.tar.gz
+rm -f node_exporter-1.5.0.linux-amd64.tar.gz
 echo "$node_exporter_directory downloaded."
 
 echo "Downloading node_status_prom_script.py"
@@ -48,6 +48,6 @@ if [ ! "$session_exist" = "" ]; then
     tmux kill-session -t $session_name
 fi
 tmux new-session -d -s $session_name
-tmux send-keys -t $session_name 'cd node_exporter-1.4.0.linux-amd64' C-m
+tmux send-keys -t $session_name 'cd node_exporter-1.5.0.linux-amd64' C-m
 tmux send-keys -t $session_name './node_exporter --collector.textfile.directory="$HOME"' C-m
 echo "node_exporter started"
