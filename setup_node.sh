@@ -3,7 +3,7 @@
 
 set -e
 
-node_version=14
+node_version=18
 
 # 1) install and configure nvm
 printf "\n[Installing nvm]\n\n"
