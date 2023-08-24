@@ -1,15 +1,21 @@
 #!/bin/bash
-# Installs latest Go. Script is idempotent and can be run multiple times to update Go if needed.
+# Installs specific Go version. Script is idempotent and can be run multiple times to update Go if needed.
 # Only for linux x86
 # Run script without `sudo`!
 
 set -e
 
-echo "Checking latest Go version..."
-latest_go_version="$(curl --silent https://go.dev/VERSION?m=text | head -n 1)"
-go_tar_file="$latest_go_version.linux-amd64.tar.gz"
+if [ $# -ne 1 ]; then
+    echo "Requires one argument that is the version of Go that you want to install."
+    exit 1
+fi
+
+echo "$1"
+
+echo "Go version to download: $1"
+echo ""
+go_tar_file="go$1.linux-amd64.tar.gz"
 go_download_url="https://golang.org/dl/$go_tar_file"
-echo "Latest Go version: $latest_go_version."
 
 echo "Changing to home directory..."
 cd
