@@ -5,7 +5,7 @@
 set -e
 
 echo "Checking latest Go version..."
-latest_go_version="$(curl --silent https://go.dev/VERSION?m=text)"
+latest_go_version="$(curl --silent https://go.dev/VERSION?m=text | head -n 1)"
 go_tar_file="$latest_go_version.linux-amd64.tar.gz"
 go_download_url="https://golang.org/dl/$go_tar_file"
 echo "Latest Go version: $latest_go_version."
