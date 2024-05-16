@@ -1,6 +1,6 @@
 #!/bin/bash
 # Installs specific Go version. Script is idempotent and can be run multiple times to update Go if needed.
-# Only for linux x86
+# Works for both x86 and arm architectures
 # Run script without `sudo`!
 
 set -e
@@ -10,11 +10,15 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-echo "$1"
+architecture="amd64"
+if [ "$(uname -m)" = "aarch64" ]; then
+    architecture="arm64"
+fi
+echo "Architecture detected: $architecture"
 
 echo "Go version to download: $1"
 echo ""
-go_tar_file="go$1.linux-amd64.tar.gz"
+go_tar_file="go$1.linux-$architecture.tar.gz"
 go_download_url="https://golang.org/dl/$go_tar_file"
 
 echo "Changing to home directory..."
