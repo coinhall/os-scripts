@@ -32,22 +32,22 @@ if check_status.returncode == 0:
     elif check_status.stderr:
         parse_check_status = json.loads(check_status.stderr)
 
-    latest_block_height: str = parse_check_status["SyncInfo"]["latest_block_height"]
+    latest_block_height: str = parse_check_status["sync_info"]["latest_block_height"]
 
-    latest_block_time_string: str = parse_check_status["SyncInfo"]["latest_block_time"][0:23]
+    latest_block_time_string: str = parse_check_status["sync_info"]["latest_block_time"][0:23]
     latest_block_time = datetime.fromisoformat(latest_block_time_string)
     current_system_time = datetime.utcnow()
     delta_seconds = (current_system_time - latest_block_time).total_seconds()
 
     latest_block_time_unix = latest_block_time.timestamp() * 1000
 
-    catching_up: bool = parse_check_status["SyncInfo"]["catching_up"]
+    catching_up: bool = parse_check_status["sync_info"]["catching_up"]
     if catching_up:
         sync_status = 1
     else:
         sync_status = 0
 
-    voting_power: str = parse_check_status["ValidatorInfo"]["VotingPower"]
+    voting_power: str = parse_check_status["validator_info"]["voting_power"]
     if voting_power == "0":
         is_active_set = 0
     else:
